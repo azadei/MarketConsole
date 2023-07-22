@@ -15,7 +15,9 @@ namespace MarketConsole
                 Console.WriteLine("1. Product Handling");
                 Console.WriteLine("2. Sales Handling");
                 Console.WriteLine("0. Exit");
-
+                Console.WriteLine("------------------------");
+                Console.WriteLine("Please, select an option:");
+                Console.WriteLine("------------------------");
 
 
                 while (!int.TryParse(Console.ReadLine(), out option)) ;
@@ -35,7 +37,7 @@ namespace MarketConsole
                         Submenu.ProductSalesSubmenu();
                         break;
                     case 3:
-                        MenuService.Exit();
+                        Console.WriteLine("Bye");
                         break;
                     default:
                         Console.WriteLine("No such option!");
