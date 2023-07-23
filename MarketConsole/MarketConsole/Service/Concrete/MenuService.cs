@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketConsole.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,24 +37,28 @@ namespace MarketConsole.Service.Concrete
        
         }
  
-
         public static void MenuUpdateProduct()
         {
             try
             {
                 Console.WriteLine("Enter Id:");
                 int id = int.Parse(Console.ReadLine());
+
                 Console.WriteLine("Enter product name:");
                 string name = Console.ReadLine();
 
                 Console.WriteLine("Enter product price:");
                 decimal price = decimal.Parse(Console.ReadLine());
 
-                Console.WriteLine("Enter quantuty:");
+                Console.WriteLine("Enter quantity:");
                 int quantity = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Enter Category:");
                 string category = Console.ReadLine();
+
+                marketService.UpdateProduct(id, name, price, quantity, category);
+
+                Console.WriteLine("Updated successfully");
             }
             catch (Exception ex)
             {
@@ -65,9 +70,12 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
-               
+                Console.WriteLine("Enter product Id:");
+                int id = int.Parse(Console.ReadLine());
+
+                marketService.RemoveProduct(id);
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
                 Console.WriteLine($"Oops, got an error: {ex.Message}");
             }
@@ -75,20 +83,41 @@ namespace MarketConsole.Service.Concrete
 
         public static void MenuShowAllProducts()
         {
-            try
-            {
+             var products = marketService.GetProducts();
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
-            }
+                if (products.Count == 0)
+                {
+                    Console.WriteLine("No products yet.");
+                    return;
+                }
+
+                foreach (var product in products)
+                {
+                    Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
+
+                }
+
         }
 
         public static void MenuShowProductsByCategory()
         {
             try
             {
+                Console.WriteLine("Enter category:");
+                string category = Console.ReadLine();
+
+                var foundProducts = marketService.ShowProductsByCategory(category);  
+                
+                if (foundProducts.Count == 0)
+                {
+                    Console.WriteLine("No products found");
+                    return;
+                }
+
+                foreach (var product in foundProducts)
+                {
+                    Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
+                }
 
             }
             catch (Exception ex)
@@ -101,24 +130,38 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
+                Console.WriteLine("Enter min price:");
+                decimal minPrice = decimal.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter min price:");
+                decimal maxPrice = decimal.Parse(Console.ReadLine());
+
+                var foundProducts = marketService.ShowProductsByPriceRange(minPrice, maxPrice);
+
+                if (foundProducts.Count == 0)
+                {
+                    Console.WriteLine("No Products found");
+                    return;
+                }
+
+                foreach (var product in foundProducts)
+                {
+                    Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
+                }
+
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
+
+                Console.WriteLine($"Oops, error. {ex.Message}");
             }
+           
         }
 
         public static void MenuSearchProductsByName()
         {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
-            }
+            
         }
 
         public static void MenuAddNewSale()

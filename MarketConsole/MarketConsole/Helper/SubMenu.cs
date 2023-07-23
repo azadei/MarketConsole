@@ -43,16 +43,22 @@ namespace MarketConsole.Helper
                         MenuService.MenuAddNewProduct();
                         break;
                     case 2:
+                        MenuService.MenuUpdateProduct();
                         break;
                     case 3:
+                        MenuService.MenuRemoveProduct();
                         break;
                     case 4:
+                        MenuService.MenuShowAllProducts();
                         break;
                     case 5:
+                        MenuService.MenuShowProductsByCategory();
                         break;
                     case 6:
+                        MenuService.MenuShowProductsByPriceRange();
                         break;
                     case 7:
+                        MenuService.MenuSearchProductsByName();
                         break;
                     case 0:
                         break;
@@ -77,7 +83,7 @@ namespace MarketConsole.Helper
                 Console.WriteLine("5. Display of sales according to the given date range");
                 Console.WriteLine("6. Display of sales according to the given amount range");
                 Console.WriteLine("7. Showing sales on a given date");
-                Console.WriteLine("7. Showing the information of the given ID, mainly the sales with that ID");
+                Console.WriteLine("8. Showing the information of the given ID, mainly the sales with that ID");
                 Console.WriteLine("0. Go Back");
                 Console.WriteLine("------------------------");
                 Console.WriteLine("Please, select an option:");
@@ -93,20 +99,28 @@ namespace MarketConsole.Helper
                 switch (option)
                 {
                     case 1:
-
+                        MenuService.MenuAddNewSale();
                         break;
                     case 2:
-
+                        MenuService.MenuReturningAnyProductOnSale();
                         break;
                     case 3:
+                        MenuService.MenuRemoveSale();
                         break;
                     case 4:
+                        MenuService.MenuShowAllSales();
                         break;
                     case 5:
+                        MenuService.MenuDisplayOfSalesAccordingToTheGivenDateRange();
                         break;
                     case 6:
+                        MenuService.MenuDisplayOfSalesAccordingToTheGivenAmountRange();
                         break;
                     case 7:
+                        MenuService.MenuShowingSalesOnaGivenDate();
+                        break;
+                    case 8:
+                        MenuService.MenuShowingTheInformationOfTheGivenIdMainlyTheSalesWithThatId();
                         break;
                     case 0:
                         break;
