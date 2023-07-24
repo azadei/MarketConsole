@@ -1,4 +1,5 @@
 ﻿using MarketConsole.Data.Common;
+using MarketConsole.Data.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace MarketConsole.Data.Models
 {
     public class Product : BaseEntity
     {
-        private static int count = 0;
+        public static int count = 0;
 
-        public Product(string name, decimal price, int quantity, string category)
+        public Product(string name, decimal price, int quantity, Category category)
         {
             Name = name;
             Price = price;
@@ -26,10 +27,7 @@ namespace MarketConsole.Data.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
-        public string Category { get; set; }
-
-
-
+        public Category Category { get; set; }
 
     }
 }

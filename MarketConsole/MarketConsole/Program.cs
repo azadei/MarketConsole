@@ -20,7 +20,7 @@ namespace MarketConsole
                 Console.WriteLine("------------------------");
 
 
-                while (!int.TryParse(Console.ReadLine(), out option)) ;
+                while (!int.TryParse(Console.ReadLine(), out option));
                 {
                     Console.WriteLine("------------------------");
                     Console.WriteLine("Please, enter a valid option:");

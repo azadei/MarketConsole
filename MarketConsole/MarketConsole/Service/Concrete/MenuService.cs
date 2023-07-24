@@ -1,4 +1,5 @@
-﻿using MarketConsole.Data.Models;
+﻿using MarketConsole.Data.Common.Enums;
+using MarketConsole.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace MarketConsole.Service.Concrete
                 int quantity = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Enter Category:");
-                string category = Console.ReadLine();
+                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine(),true);
 
                 marketService.AddProduct(name, price, quantity, category);
             }
@@ -54,7 +55,7 @@ namespace MarketConsole.Service.Concrete
                 int quantity = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Enter Category:");
-                string category = Console.ReadLine();
+                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine());
 
                 marketService.UpdateProduct(id, name, price, quantity, category);
 
@@ -74,6 +75,7 @@ namespace MarketConsole.Service.Concrete
                 int id = int.Parse(Console.ReadLine());
 
                 marketService.RemoveProduct(id);
+                Console.WriteLine("Removed succesfully");
             }
             catch (Exception ex)    
             {
@@ -104,7 +106,7 @@ namespace MarketConsole.Service.Concrete
             try
             {
                 Console.WriteLine("Enter category:");
-                string category = Console.ReadLine();
+                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine());
 
                 var foundProducts = marketService.ShowProductsByCategory(category);  
                 
@@ -161,14 +163,40 @@ namespace MarketConsole.Service.Concrete
 
         public static void MenuSearchProductsByName()
         {
-            
+            try
+            {
+                Console.WriteLine("Write product name:");
+                string name = Console.ReadLine();
+
+                var foundProducts = marketService.SearchProductsByName(name);
+
+                if (foundProducts == null)
+                {
+                    Console.WriteLine("No products found");
+                    return;
+                }
+
+                foreach(var product in foundProducts)
+                {
+                    Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
 
         public static void MenuAddNewSale()
         {
             try
             {
-
+                Console.WriteLine("Write an Id of product");
+                int id = int.Parse(Console.ReadLine());
+                
             }
             catch (Exception ex)
             {
@@ -192,7 +220,12 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
+                Console.WriteLine("Enter sale's Id:");
+                int id = int.Parse(Console.ReadLine());
 
+                marketService.RemoveProduct(id);
+
+                Console.WriteLine("Sale removed succesfully");
             }
             catch (Exception ex)
             {

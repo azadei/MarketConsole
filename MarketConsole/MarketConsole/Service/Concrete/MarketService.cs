@@ -1,4 +1,5 @@
-﻿using MarketConsole.Data.Models;
+﻿using MarketConsole.Data.Common.Enums;
+using MarketConsole.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace MarketConsole.Service.Concrete
 {
-    public class MarketService
+    public class MarketService : IMarketService
     {
         private List<Product> products;
+        private List<Sales> sales;
 
         public MarketService()
         {
             products = new();
-            
+            sales = new();
         }
         
         public List<Product> GetProducts()
@@ -22,7 +24,7 @@ namespace MarketConsole.Service.Concrete
             return products;
         }
 
-        public void AddProduct(string name, decimal price, int quantity, string category)
+        public void AddProduct(string name, decimal price, int quantity, Category category)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new Exception("Name can't be empty!");
 
@@ -34,7 +36,7 @@ namespace MarketConsole.Service.Concrete
 
         }
 
-        public void UpdateProduct(int id, string name, decimal price, int quantity, string category)
+        public void UpdateProduct(int id, string name, decimal price, int quantity, Category category)
         {
             if (id < 0) throw new ArgumentOutOfRangeException("Id can't be negative!");
 
@@ -44,7 +46,7 @@ namespace MarketConsole.Service.Concrete
 
             if (quantity < 0) throw new ArgumentOutOfRangeException("Quantity can't be negative!");
 
-            if (string.IsNullOrWhiteSpace(category)) throw new Exception("Category can't be empty!");
+            if (category == null) throw new Exception("Category can't be empty!");
 
             var existingProduct = products.FirstOrDefault(x => x.Id == id);
 
@@ -68,11 +70,11 @@ namespace MarketConsole.Service.Concrete
             products = products.Where(x => x.Id != id).ToList();
         }
 
-        public List<Product> ShowProductsByCategory(string category)
+        public List<Product> ShowProductsByCategory(Category category)
         {
-            if (string.IsNullOrWhiteSpace(category)) throw new Exception("Category can't be empty!");
+            if (category == null) throw new Exception("Category can't be empty!");
 
-            var foundProducts = products.Where(x => x.Category.ToLower().Trim() == category.ToLower().Trim()).ToList();
+            var foundProducts = products.Where(x => x.Category == category).ToList();
 
             return foundProducts;
         }
@@ -84,24 +86,27 @@ namespace MarketConsole.Service.Concrete
             return products.Where(x => x.Price >= minPrice && x.Price <= maxPrice).ToList();
         }
 
-        internal IEnumerable<object> SearchProductsByName(string? name)
+        public List<Product> SearchProductsByName(string name)
         {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrWhiteSpace(name)) throw new Exception("Name can't be empty");
 
-        static List<Product> SearchProductByName(List<Product> products, string searchName)
-        {
-            List<Product> foundProducts = new List<Product>();
-
-            foreach (var product in products)
-            {
-                if (product.Name.ToLower().Contains(searchName.ToLower()))
-                {
-                    foundProducts.Add(product);
-                }
-            }
+            var foundProducts = products.Where(x => x.Name.ToLower().Trim() == name.ToLower().Trim()).ToList();
 
             return foundProducts;
         }
+
+        public void RemoveSale(int id)
+        {
+            if (id < 0) throw new Exception("Id is negative!");
+
+            int saleIndex = sales.FindIndex(x => x.Id == id);
+
+            if (saleIndex == -1) throw new Exception("Meeting not found!");
+
+            sales.RemoveAt(saleIndex);
+
+        }
+
+
     }
 }
