@@ -2,9 +2,11 @@
 using MarketConsole.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MarketConsole.Service.Concrete
 {
@@ -22,6 +24,11 @@ namespace MarketConsole.Service.Concrete
         public List<Product> GetProducts()
         {
             return products;
+        }
+
+        public List<Sales> GetSales()
+        {
+            return sales;
         }
 
         public void AddProduct(string name, decimal price, int quantity, Category category)
@@ -95,6 +102,30 @@ namespace MarketConsole.Service.Concrete
             return foundProducts;
         }
 
+        public void AddNewSale(int id, string name, int quantity, DateTime date)
+        {
+            var product = products.Find(p => p.Name == name);
+
+            if (product != null)
+            {
+                if (product.Quantity >= quantity)
+                {
+                    product.Quantity -= quantity;
+                    Console.WriteLine($"Successfully sold '{name}': Available {product.Quantity}");
+                }
+
+                else
+                {
+                    Console.WriteLine($"There is not enought '{name}'. Avaliable: {product.Quantity}.");
+                }
+            }
+                else
+                {
+                    Console.WriteLine($"Product '{name}' not found.");
+                }
+
+        }
+
         public void RemoveSale(int id)
         {
             if (id < 0) throw new Exception("Id is negative!");
@@ -107,6 +138,21 @@ namespace MarketConsole.Service.Concrete
 
         }
 
+        public void ShowAllSales(int id, string name)
+        {
+            {
+                if(sales.Count == 0)
+                {
+                    Console.WriteLine("No sales yet");
+                }
+            }
 
+            foreach (var sale in sales)
+            {
+                Console.WriteLine(sale);
+            }
+        }
+
+        
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace MarketConsole.Service.Concrete
 {
@@ -194,9 +195,29 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
-                Console.WriteLine("Write an Id of product");
-                int id = int.Parse(Console.ReadLine());
-                
+                try
+                {
+                    Console.WriteLine("Enter product id");
+                    int productid = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("Enter product name:");
+                    string name = Console.ReadLine();
+
+                    Console.WriteLine("Enter the quantity:");
+                    int quantity = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("Enter date (dd/MM/yyyy):");
+                    DateTime date = DateTime.Parse(Console.ReadLine());
+
+                    marketService.AddNewSale(productid, name, quantity, date);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Oops, error. {ex.Message}");
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -235,14 +256,21 @@ namespace MarketConsole.Service.Concrete
 
         public static void MenuShowAllSales()
         {
-            try
-            {
+                var sales = marketService.GetProducts();
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
-            }
+                if (sales.Count == 0)
+                {
+                    Console.WriteLine("No sales yet.");
+                    return;
+                }
+
+                foreach (var sale in sales)
+                {
+                    Console.WriteLine($"Id: {sale.Id} | Name: {sale.Name} | Price: {sale.Price} | Quantity: {sale.Quantity} | Category: {sale.Category}");
+
+                }
+
+            
         }
 
         public static void MenuDisplayOfSalesAccordingToTheGivenDateRange()

@@ -18,6 +18,9 @@ namespace MarketConsole.Data.Models
             Item = item;
             Date = date;
 
+            Id = count;
+            count++;
+
         }
 
         public string Name { get; set; }
