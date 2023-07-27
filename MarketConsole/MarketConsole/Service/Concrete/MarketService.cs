@@ -188,22 +188,27 @@ namespace MarketConsole.Service.Concrete
         {
             if (id < 0) throw new Exception("Id is negative!");
 
-            int saleIndex = sales.FindIndex(x => x.Id == id);
+            var saleIndex = sales.FirstOrDefault(x => x.Id == id);
+            if (saleIndex == null) throw new Exception("Sale not found!");
 
-            if (saleIndex == -1) throw new Exception("Sale not found!");
-
-            sales.RemoveAt(saleIndex);
+            foreach (var item in saleIndex.Items)
+            {
+                var product = products.FirstOrDefault(p => p.Id == item.SalesProduct.Id);
+                if (product == null) throw new Exception("Product Is null");
+                product.Quantity += item.Quantity;
+            }
+            sales.Remove(saleIndex);
 
         }
 
-        public void ShowAllSales(int id, string name, int quantity, DateTime dateTime)
+        public void ShowAllSales(int id, decimal price, int quantity, DateTime dateTime)
         {
-            {
+            
                 if(sales.Count == 0)
                 {
                     Console.WriteLine("No sales yet");
                 }
-            }
+            
 
             foreach (var sale in sales)
             {

@@ -13,6 +13,14 @@ namespace MarketConsole.Service.Concrete
     public class MenuService : BaseEntity
     {
         public static MarketService marketService = new MarketService();
+        private List<Sales> sales;
+        private List<SaleItem> saleItems;
+
+        public MenuService(List<Sales> sales, List<SaleItem> saleItems)
+        {
+            this.sales = sales;
+            this.saleItems = saleItems;
+        }
 
         public static void MenuAddNewProduct()
         {
@@ -229,7 +237,7 @@ namespace MarketConsole.Service.Concrete
                 Console.WriteLine("Enter sale's Id:");
                 int id = int.Parse(Console.ReadLine());
 
-                marketService.RemoveProduct(id);
+                marketService.RemoveSale(id);
 
                 Console.WriteLine("Sale removed succesfully");
             }
@@ -255,8 +263,6 @@ namespace MarketConsole.Service.Concrete
 
                 }
 
-
-            
         }
 
         public static void MenuDisplayOfSalesAccordingToTheGivenDateRange()
