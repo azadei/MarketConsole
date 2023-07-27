@@ -1,5 +1,6 @@
 ﻿using MarketConsole.Data.Common.Enums;
 using MarketConsole.Data.Models;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,11 +15,14 @@ namespace MarketConsole.Service.Concrete
     {
         private List<Product> products;
         private List<Sales> sales;
+        private List<SaleItem> saleItems;
+        private Sales sale;
 
         public MarketService()
         {
             products = new();
             sales = new();
+            saleItems = new();
         }
         
         public List<Product> GetProducts()
@@ -29,6 +33,11 @@ namespace MarketConsole.Service.Concrete
         public List<Sales> GetSales()
         {
             return sales;
+        }
+
+        public List<SaleItem> GetSaleItem()
+        {
+            return saleItems;
         }
 
         public void AddProduct(string name, decimal price, int quantity, Category category)
@@ -102,29 +111,78 @@ namespace MarketConsole.Service.Concrete
             return foundProducts;
         }
 
-        public void AddNewSale(int id, string name, int quantity, DateTime date)
+        public void AddNewSale(int productid, int quantity, DateTime Now)
         {
-            var product = products.Find(p => p.Name == name);
+            List<SaleItem> tempItems = new List<SaleItem>();
 
-            if (product != null)
+            int option;
+
+            do
             {
-                if (product.Quantity >= quantity)
+                var product = products.Find(p => p.Id == productid);
+
+                if (quantity <= 0)
                 {
+                    Console.WriteLine("Quantity must be greater than 0.");
+                }
+                else if (product == null)
+                {
+                    Console.WriteLine("Product not found.");
+                }
+                else if (product.Quantity < quantity)
+                {
+                    Console.WriteLine("Not enough quantity in stock.");
+                }
+                else
+                {
+                    var price = product.Price * quantity;
                     product.Quantity -= quantity;
-                    Console.WriteLine($"Successfully sold '{name}': Available {product.Quantity}");
+
+                    var saleItem = new SaleItem(product, quantity);
+                    tempItems.Add(saleItem);
+
+                    Console.WriteLine("Product added to the sale.");
                 }
 
-                else
+                Console.WriteLine("Do you want to add one more product?");
+                Console.WriteLine("1. Yes");
+                Console.WriteLine("2. No");
+
+                while (!int.TryParse(Console.ReadLine(), out option))
                 {
-                    Console.WriteLine($"There is not enought '{name}'. Avaliable: {product.Quantity}.");
+                    Console.WriteLine("Please, enter a valid option:");
+                    Console.WriteLine("Enter option again");
                 }
+
+                if (option == 1)
+                {
+                    Console.WriteLine("Enter product id");
+                    productid = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("Enter the quantity:");
+                    quantity = int.Parse(Console.ReadLine());
+                }
+
+            } while (option == 1);
+
+            if (tempItems.Count > 0)
+            {
+                decimal sum = tempItems.Sum(item => item.Quantity * item.SalesProduct.Price);
+                int totalQuantity = tempItems.Sum(item => item.Quantity);
+
+                var sale = new Sales("Sale", sum, totalQuantity, Now, tempItems);
+                sales.Add(sale);
+
+                Console.WriteLine("_______________");
+                Console.WriteLine("Sale completed.");
+                Console.WriteLine("_______________");
             }
-                else
-                {
-                    Console.WriteLine($"Product '{name}' not found.");
-                }
-
+            else
+            {
+                Console.WriteLine("Sale canceled, no products added.");
+            }
         }
+       
 
         public void RemoveSale(int id)
         {
@@ -132,13 +190,13 @@ namespace MarketConsole.Service.Concrete
 
             int saleIndex = sales.FindIndex(x => x.Id == id);
 
-            if (saleIndex == -1) throw new Exception("Meeting not found!");
+            if (saleIndex == -1) throw new Exception("Sale not found!");
 
             sales.RemoveAt(saleIndex);
 
         }
 
-        public void ShowAllSales(int id, string name)
+        public void ShowAllSales(int id, string name, int quantity, DateTime dateTime)
         {
             {
                 if(sales.Count == 0)

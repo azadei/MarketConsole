@@ -1,4 +1,5 @@
-﻿using MarketConsole.Data.Common.Enums;
+﻿using MarketConsole.Data.Common;
+using MarketConsole.Data.Common.Enums;
 using MarketConsole.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Transactions;
 
 namespace MarketConsole.Service.Concrete
 {
-    public class MenuService
+    public class MenuService : BaseEntity
     {
         public static MarketService marketService = new MarketService();
 
@@ -107,7 +108,7 @@ namespace MarketConsole.Service.Concrete
             try
             {
                 Console.WriteLine("Enter category:");
-                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine());
+                Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine(),true);
 
                 var foundProducts = marketService.ShowProductsByCategory(category);  
                 
@@ -195,33 +196,17 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
-                try
-                {
-                    Console.WriteLine("Enter product id");
-                    int productid = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter product id");
+                int productid = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Enter product name:");
-                    string name = Console.ReadLine();
+                Console.WriteLine("Enter the quantity:");
+                int quantity = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Enter the quantity:");
-                    int quantity = int.Parse(Console.ReadLine());
-
-                    Console.WriteLine("Enter date (dd/MM/yyyy):");
-                    DateTime date = DateTime.Parse(Console.ReadLine());
-
-                    marketService.AddNewSale(productid, name, quantity, date);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Oops, error. {ex.Message}");
-                }
-
-
-
+                marketService.AddNewSale(productid, quantity, DateTime.Now);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
+                Console.WriteLine($"Oops, error. {ex.Message}");
             }
         }
 
@@ -256,7 +241,7 @@ namespace MarketConsole.Service.Concrete
 
         public static void MenuShowAllSales()
         {
-                var sales = marketService.GetProducts();
+                var sales = marketService.GetSales();
 
                 if (sales.Count == 0)
                 {
@@ -266,9 +251,10 @@ namespace MarketConsole.Service.Concrete
 
                 foreach (var sale in sales)
                 {
-                    Console.WriteLine($"Id: {sale.Id} | Name: {sale.Name} | Price: {sale.Price} | Quantity: {sale.Quantity} | Category: {sale.Category}");
+                    Console.WriteLine($"Id: {sale.Id} | Price: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date} ");
 
                 }
+
 
             
         }
@@ -322,8 +308,11 @@ namespace MarketConsole.Service.Concrete
             }
       
      
-        }     
+        }
 
+        
+
+        
     }
 
 

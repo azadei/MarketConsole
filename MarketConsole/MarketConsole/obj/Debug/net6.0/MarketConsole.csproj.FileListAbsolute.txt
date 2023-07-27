@@ -13,3 +13,5 @@ C:\Users\user\Desktop\MarketConsole\MarketConsole\MarketConsole\obj\Debug\net6.0
 C:\Users\user\Desktop\MarketConsole\MarketConsole\MarketConsole\obj\Debug\net6.0\MarketConsole.pdb
 C:\Users\user\Desktop\MarketConsole\MarketConsole\MarketConsole\obj\Debug\net6.0\MarketConsole.genruntimeconfig.cache
 C:\Users\user\Desktop\MarketConsole\MarketConsole\MarketConsole\obj\Debug\net6.0\ref\MarketConsole.dll
+C:\Users\user\Desktop\MarketConsole\MarketConsole\MarketConsole\bin\Debug\net6.0\ConsoleTables.dll
+C:\Users\user\Desktop\MarketConsole\MarketConsole\MarketConsole\obj\Debug\net6.0\MarketConsole.csproj.CopyComplete

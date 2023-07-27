@@ -1,6 +1,7 @@
 ﻿using MarketConsole.Helper;
 using MarketConsole.Service.Concrete;
 using System.ComponentModel.Design;
+using ConsoleTables;
 
 namespace MarketConsole
 {
