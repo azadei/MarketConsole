@@ -228,6 +228,12 @@ namespace MarketConsole.Service.Concrete
             return sales.Where(s => s.Date.Date == date.Date).ToList();
         }
 
+        public List<Sales> ShowSalesByAmountRange(decimal minamount, decimal maxamount)
+        {
+            if (minamount > maxamount) throw new Exception("The min amount can't be more than max amount");
+
+            return sales.Where(s => s.Sum >= minamount && s.Sum <= maxamount).ToList();
+        }
 
 
 
