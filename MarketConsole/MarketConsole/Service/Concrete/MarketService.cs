@@ -209,13 +209,27 @@ namespace MarketConsole.Service.Concrete
                     Console.WriteLine("No sales yet");
                 }
             
-
             foreach (var sale in sales)
             {
                 Console.WriteLine(sale);
             }
         }
 
-        
+        public List<Sales> ShowSaleByDateRange(DateTime startDate, DateTime endDate)
+        {
+            if (startDate > endDate)
+                throw new Exception("The start date cannot be later than the end date.");
+
+            return sales.Where(s => s.Date >= startDate && s.Date <= endDate).ToList();
+        }
+
+        public List<Sales> ShowSalesOnGivenDate(DateTime date)
+        {
+            return sales.Where(s => s.Date.Date == date.Date).ToList();
+        }
+
+
+
+
     }
 }

@@ -3,6 +3,8 @@ using MarketConsole.Data.Common.Enums;
 using MarketConsole.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -259,28 +261,77 @@ namespace MarketConsole.Service.Concrete
 
                 foreach (var sale in sales)
                 {
-                    Console.WriteLine($"Id: {sale.Id} | Price: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date} ");
+                    Console.WriteLine($"Id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date} ");
 
                 }
 
         }
 
-        public static void MenuDisplayOfSalesAccordingToTheGivenDateRange()
+        public static void MenuShowSalesByDateRange()
         {
             try
             {
+                Console.WriteLine("Enter start date:");
+                DateTime startDate = DateTime.Parse(Console.ReadLine());
 
+                Console.WriteLine("Enter end date:");
+                DateTime endDate = DateTime.Parse(Console.ReadLine());
+
+                var foundSales = marketService.ShowSaleByDateRange(startDate, endDate);
+
+                if (foundSales.Count == 0)
+                {
+                    Console.WriteLine("Sales no found in the given range.");
+                    return;
+                }
+
+                foreach (var sale in foundSales)
+                {
+                    Console.WriteLine($"Check Id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
+                    
+                    foreach (var item in sale.Items)
+                    {
+                        Console.WriteLine($"Id: {item.SalesProduct.Id} | Product Name: {item.SalesProduct.Name} | Quantity: {item.Quantity}");
+                    }
+                    Console.WriteLine("--------------------");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
-        public static void MenuDisplayOfSalesAccordingToTheGivenAmountRange()
+        public static void MenuShowSalesByAmountRange()
         {
             try
             {
+                Console.WriteLine("Write min amount:");
+                decimal minamount = decimal.Parse(Console.ReadLine());
+
+                Console.WriteLine("Write max amount:");
+                decimal maxamount = decimal.Parse(Console.ReadLine());
+
+                var foundSales = marketService.ShowSalesByAmountRange(minamount, maxamount);
+
+                if (foundSales.Count == 0)
+                {
+                    Console.WriteLine("Sales no found in the given range.");
+                    return;
+                }
+
+                foreach (var sale in foundSales)
+                {
+                    Console.WriteLine($"Check Id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
+
+                    foreach (var item in sale.Items)
+                    {
+                        Console.WriteLine($"Id: {item.SalesProduct.Id} | Product Name: {item.SalesProduct.Name} | Quantity: {item.Quantity}");
+                    }
+                    Console.WriteLine("--------------------");
+                }
+
+
 
             }
             catch (Exception ex)
@@ -293,11 +344,31 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
+                Console.WriteLine("Enter date:");
+                DateTime date = DateTime.Parse(Console.ReadLine());
 
+                var foundSales = marketService.ShowSalesOnGivenDate(date);
+
+                if (foundSales.Count == 0)
+                {
+                    Console.WriteLine($"Sales not found.");
+                    return;
+                }
+
+                foreach (var sale in foundSales)
+                {
+                    Console.WriteLine($"Check id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
+                    Console.WriteLine("Products on sale:");
+                    foreach (var item in sale.Items)
+                    {
+                        Console.WriteLine($"Sale id: {item.SalesProduct.Id} | Product name: {item.SalesProduct.Name} | Quantity: {item.Quantity}");
+                    }
+                    Console.WriteLine("--------------------");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 

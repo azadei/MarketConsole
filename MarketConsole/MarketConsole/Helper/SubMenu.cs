@@ -80,7 +80,7 @@ namespace MarketConsole.Helper
                 Console.WriteLine("2. Returning any product on sale");
                 Console.WriteLine("3. Remove sale");
                 Console.WriteLine("4. Show all sales");
-                Console.WriteLine("5. Display of sales according to the given date range");
+                Console.WriteLine("5. Show sales by date range");
                 Console.WriteLine("6. Display of sales according to the given amount range");
                 Console.WriteLine("7. Showing sales on a given date");
                 Console.WriteLine("8. Showing the information of the given ID, mainly the sales with that ID");
@@ -111,7 +111,7 @@ namespace MarketConsole.Helper
                         MenuService.MenuShowAllSales();
                         break;
                     case 5:
-                        MenuService.MenuDisplayOfSalesAccordingToTheGivenDateRange();
+                        MenuService.MenuShowSalesByDateRange();
                         break;
                     case 6:
                         MenuService.MenuDisplayOfSalesAccordingToTheGivenAmountRange();
