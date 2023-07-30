@@ -14,10 +14,10 @@ namespace MarketConsole.Data.Models
 
        
 
-        public Sales(string name, decimal sum, int quantity, DateTime date, List<SaleItem> items)
+        public Sales(string name, decimal totalSum, int quantity, DateTime date, List<SaleItem> items)
         {
             Name = name;
-            Sum = sum;
+            TotalSum = totalSum;
             Quantity = quantity;
             Date = date;
             Items = items;
@@ -28,7 +28,7 @@ namespace MarketConsole.Data.Models
         }
 
         public string Name { get; set; }
-        public decimal Sum { get; set; }
+        public decimal TotalSum { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public int ProductCount{ get; set; }

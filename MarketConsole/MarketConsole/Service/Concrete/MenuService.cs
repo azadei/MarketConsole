@@ -199,7 +199,6 @@ namespace MarketConsole.Service.Concrete
                 throw;
             }
 
-
         }
 
         public static void MenuAddNewSale()
@@ -207,6 +206,8 @@ namespace MarketConsole.Service.Concrete
             try
             {
                 Console.WriteLine("Enter product id");
+                Console.WriteLine("____________");
+
                 int productid = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Enter the quantity:");
@@ -224,11 +225,39 @@ namespace MarketConsole.Service.Concrete
         {
             try
             {
+                Console.WriteLine("Enter check Id:");
+                int saleId = int.Parse(Console.ReadLine());
 
+                var foundSale = marketService.GetSaleById(saleId);
+
+                if (foundSale == null)
+                {
+                    Console.WriteLine("Sale not found");
+                    return;
+                }
+
+                Console.WriteLine($"Sale {saleId}");
+
+                Console.WriteLine($"Sale ID: {foundSale.Id} | Total Amount: {foundSale.TotalSum} | Quantity: {foundSale.Quantity} | Date: {foundSale.Date}");
+                Console.WriteLine("Items in the sale:");
+                foreach (var item in foundSale.Items)
+                {
+                    Console.WriteLine($"Product ID: {item.SalesProduct.Id} | Product Name: {item.SalesProduct.Name} | Quantuty: {item.Quantity}");
+                }
+                Console.WriteLine("--------------------");
+
+                Console.WriteLine("Enter product ID to return:");
+                int productIdToReturn = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter quantity to return:");
+                int quantityToReturn = int.Parse(Console.ReadLine());
+
+                marketService.ReturnProductFromSale(saleId, productIdToReturn, quantityToReturn);
+                Console.WriteLine("Product returned successfully.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
@@ -251,19 +280,19 @@ namespace MarketConsole.Service.Concrete
 
         public static void MenuShowAllSales()
         {
-                var sales = marketService.GetSales();
+            var sales = marketService.GetSales();
 
-                if (sales.Count == 0)
-                {
-                    Console.WriteLine("No sales yet.");
-                    return;
-                }
+            if (sales.Count == 0)
+            {
+                Console.WriteLine("No sales yet.");
+                return;
+            }
 
-                foreach (var sale in sales)
-                {
-                    Console.WriteLine($"Id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date} ");
+            foreach (var sale in sales)
+            {
+                Console.WriteLine($"Id: {sale.Id} | Sum: {sale.TotalSum} | Quantity: {sale.Quantity} | Date: {sale.Date} ");
 
-                }
+            }
 
         }
 
@@ -287,7 +316,7 @@ namespace MarketConsole.Service.Concrete
 
                 foreach (var sale in foundSales)
                 {
-                    Console.WriteLine($"Check Id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
+                    Console.WriteLine($"Check Id: {sale.Id} | Sum: {sale.TotalSum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
                     
                     foreach (var item in sale.Items)
                     {
@@ -322,7 +351,7 @@ namespace MarketConsole.Service.Concrete
 
                 foreach (var sale in foundSales)
                 {
-                    Console.WriteLine($"Check Id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
+                    Console.WriteLine($"Check Id: {sale.Id} | Sum: {sale.TotalSum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
 
                     foreach (var item in sale.Items)
                     {
@@ -357,7 +386,7 @@ namespace MarketConsole.Service.Concrete
 
                 foreach (var sale in foundSales)
                 {
-                    Console.WriteLine($"Check id: {sale.Id} | Sum: {sale.Sum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
+                    Console.WriteLine($"Check id: {sale.Id} | Sum: {sale.TotalSum} | Quantity: {sale.Quantity} | Date: {sale.Date}");
                     Console.WriteLine("Products on sale:");
                     foreach (var item in sale.Items)
                     {
@@ -372,25 +401,44 @@ namespace MarketConsole.Service.Concrete
             }
         }
 
-        public static void MenuShowingTheInformationOfTheGivenIdMainlyTheSalesWithThatId()
+        public static void MenuShowSalesByGivenId()
 
         {
             try
             {
+                Console.WriteLine("Enter Id:");
+                int saleId = int.Parse(Console.ReadLine());
 
+                var foundSale = marketService.ShowSalesByGivenId(saleId);
+
+                if (foundSale == null)
+                {
+                    Console.WriteLine("Sale not found");
+                    return;
+                }
+
+                Console.WriteLine($"Sale {saleId}");
+
+                Console.WriteLine($"Sale ID: {foundSale.Id} | Total Amount: {foundSale.TotalSum} | Quantity: {foundSale.Quantity} | Date: {foundSale.Date}");
+                Console.WriteLine("Items in the sale:");
+                foreach (var item in foundSale.Items)
+                {
+                    Console.WriteLine($"- Product ID: {item.SalesProduct.Id} | Product Name: {item.SalesProduct.Name} | Quantity: {item.Quantity}");
+                }
+                Console.WriteLine("--------------------");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Oops, got an error: {ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
             }
-      
-     
         }
-
-        
-
-        
+            
     }
+
+        
+
+        
+   
 
 
 }

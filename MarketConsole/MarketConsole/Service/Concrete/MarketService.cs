@@ -40,6 +40,11 @@ namespace MarketConsole.Service.Concrete
             return saleItems;
         }
 
+        public Sales GetSaleById(int saleId)
+        {
+            return sales.FirstOrDefault(s => s.Id == saleId);
+        }
+
         public void AddProduct(string name, decimal price, int quantity, Category category)
         {
             if (string.IsNullOrWhiteSpace(name)) throw new Exception("Name can't be empty!");
@@ -104,7 +109,7 @@ namespace MarketConsole.Service.Concrete
 
         public List<Product> SearchProductsByName(string name)
         {
-            if (!string.IsNullOrWhiteSpace(name)) throw new Exception("Name can't be empty");
+            if (string.IsNullOrWhiteSpace(name)) throw new Exception("Name can't be empty");
 
             var foundProducts = products.Where(x => x.Name.ToLower().Trim() == name.ToLower().Trim()).ToList();
 
@@ -182,7 +187,35 @@ namespace MarketConsole.Service.Concrete
                 Console.WriteLine("Sale canceled, no products added.");
             }
         }
-       
+
+        public void ReturnProductFromSale(int saleId, int productIdToReturn, int quantityToReturn)
+        {
+            var sale = sales.FirstOrDefault(s => s.Id == saleId);
+
+            if (sale == null)
+                throw new Exception("Sale not found");
+
+            var itemToReturn = sale.Items.FirstOrDefault(i => i.SalesProduct.Id == productIdToReturn);
+
+            if (itemToReturn == null)
+                throw new Exception("Product not found in the sale");
+
+            if (quantityToReturn > itemToReturn.Quantity)
+                throw new Exception("Quantity to return is greater than the quantity in the sale");
+
+            var product = products.FirstOrDefault(p => p.Id == productIdToReturn);
+
+            if (product == null)
+                throw new Exception("Product not found");
+
+            product.Quantity += quantityToReturn;
+            itemToReturn.Quantity -= quantityToReturn;
+
+            sale.TotalSum -= product.Price * quantityToReturn;
+            sale.Quantity -= quantityToReturn;
+
+            Console.WriteLine($"Returned {quantityToReturn} of {product.Name} from the sale.");
+        }
 
         public void RemoveSale(int id)
         {
@@ -232,8 +265,16 @@ namespace MarketConsole.Service.Concrete
         {
             if (minamount > maxamount) throw new Exception("The min amount can't be more than max amount");
 
-            return sales.Where(s => s.Sum >= minamount && s.Sum <= maxamount).ToList();
+            return sales.Where(s => s.TotalSum >= minamount && s.TotalSum <= maxamount).ToList();
         }
+
+        public Sales ShowSalesByGivenId(int saleId)
+        {
+            return sales.FirstOrDefault(s => s.Id == saleId);
+        }
+
+        
+        
 
 
 

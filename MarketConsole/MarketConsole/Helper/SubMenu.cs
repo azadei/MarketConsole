@@ -83,7 +83,7 @@ namespace MarketConsole.Helper
                 Console.WriteLine("5. Show sales by date range");
                 Console.WriteLine("6. Show sales by amount range");
                 Console.WriteLine("7. Showing sales on a given date");
-                Console.WriteLine("8. Showing the information of the given ID, mainly the sales with that ID");
+                Console.WriteLine("8. Show sales by give Id");
                 Console.WriteLine("0. Go Back");
                 Console.WriteLine("------------------------");
                 Console.WriteLine("Please, select an option:");
@@ -120,7 +120,7 @@ namespace MarketConsole.Helper
                         MenuService.MenuShowingSalesOnaGivenDate();
                         break;
                     case 8:
-                        MenuService.MenuShowingTheInformationOfTheGivenIdMainlyTheSalesWithThatId();
+                        MenuService.MenuShowSalesByGivenId();
                         break;
                     case 0:
                         break;
