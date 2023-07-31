@@ -1,19 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "m/ESIY9nHCKvVrwfd3d6ZeNcTd8/cU/6ByIgOU6KFGrLIKH384tyyKv0JetVq8LpntX868koTuoMRarENxknPQ==",
+  "dgSpecHash": "AJKWnIT36TN/2DxFslC2DGO2R2A6O1mj+UJ1H7nBhSkCbwe5xD9HhoGv4it9oWmQuLF3DmzECDUTPR258ppy2A==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Desktop\\MarketConsole\\MarketConsole\\MarketConsole\\MarketConsole.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\user\\.nuget\\packages\\consoletables\\2.4.2\\consoletables.2.4.2.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.reflection.typeextensions\\4.3.0\\system.reflection.typeextensions.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
-    "C:\\Users\\user\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+    "C:\\Users\\user\\.nuget\\packages\\consoletables\\2.5.0\\consoletables.2.5.0.nupkg.sha512"
   ],
   "logs": []
 }

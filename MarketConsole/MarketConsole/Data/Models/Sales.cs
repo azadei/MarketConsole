@@ -12,8 +12,6 @@ namespace MarketConsole.Data.Models
         public static int count = 0;
         private int quantity;
 
-       
-
         public Sales(string name, decimal totalSum, int quantity, DateTime date, List<SaleItem> items)
         {
             Name = name;
@@ -34,13 +32,5 @@ namespace MarketConsole.Data.Models
         public int ProductCount{ get; set; }
         public DateTime Date { get; set; }
         public List<SaleItem> Items { get; set; }
-
     }
-
-       
-    
-        
-    
-
-
 }

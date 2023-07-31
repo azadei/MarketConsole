@@ -16,8 +16,6 @@ namespace MarketConsole
 
         public void RemoveProduct(int id);
 
-       
-
         public List<Product> ShowProductsByCategory(Category category);
 
         public List<Product> ShowProductsByPriceRange(decimal minPrice, decimal maxPrice);
@@ -26,6 +24,20 @@ namespace MarketConsole
 
 
 
+        public void AddNewSale(int productid, int quantity, DateTime Now);
 
+        public void ReturnProductFromSale(int saleId, int productIdToReturn, int quantityToReturn);
+
+        public void RemoveSale(int id);
+
+        public void ShowAllSales(int id, decimal price, int quantity, DateTime dateTime);
+
+        public List<Sales> ShowSaleByDateRange(DateTime startDate, DateTime endDate);
+
+        public List<Sales> ShowSalesOnGivenDate(DateTime date);
+
+        public List<Sales> ShowSalesByAmountRange(decimal minamount, decimal maxamount);
+
+        public Sales ShowSalesByGivenId(int saleId);
     }
 }

@@ -28,7 +28,6 @@ namespace MarketConsole
                     Console.WriteLine("------------------------");
                 }
             
-
                 switch (option)
                 {
                     case 1:
@@ -45,12 +44,8 @@ namespace MarketConsole
                         break;
 
                 }
+
             } while (option != 0);
-
-
-
-
-
 
         }
     }

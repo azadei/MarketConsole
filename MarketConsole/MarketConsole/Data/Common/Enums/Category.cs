@@ -13,7 +13,5 @@ namespace MarketConsole.Data.Common.Enums
         FrozenFoods,
         Meat,
         Cleaners
-
-
     }
 }

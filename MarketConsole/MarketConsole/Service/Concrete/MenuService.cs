@@ -27,8 +27,8 @@ namespace MarketConsole.Service.Concrete
         public static void MenuAddNewProduct()
         {
             try
-            {
-                Console.WriteLine("Enter product name:");
+            {   
+                Console.WriteLine("Enter product name:");                     //user must enter the necessary information to create a new product
                 string name = Console.ReadLine();
 
                 Console.WriteLine("Enter product price:");
@@ -38,6 +38,10 @@ namespace MarketConsole.Service.Concrete
                 int quantity = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Enter Category:");
+                Console.WriteLine("__________________________________________");
+                Console.WriteLine("Available categories:");
+                Console.WriteLine("Drinks, Foods, Frozenfoods, Meat, Cleaners");
+                Console.WriteLine("__________________________________________");
                 Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine(),true);
 
                 marketService.AddProduct(name, price, quantity, category);
@@ -45,9 +49,7 @@ namespace MarketConsole.Service.Concrete
             catch (Exception ex)
             {
                 Console.WriteLine($"Oops, error. {ex.Message}");
-
             }
-       
         }
  
         public static void MenuUpdateProduct()
@@ -71,7 +73,9 @@ namespace MarketConsole.Service.Concrete
 
                 marketService.UpdateProduct(id, name, price, quantity, category);
 
+                Console.WriteLine("____________________");
                 Console.WriteLine("Updated successfully");
+                Console.WriteLine("____________________");
             }
             catch (Exception ex)
             {
@@ -108,9 +112,7 @@ namespace MarketConsole.Service.Concrete
                 foreach (var product in products)
                 {
                     Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
-
                 }
-
         }
 
         public static void MenuShowProductsByCategory()
@@ -132,7 +134,6 @@ namespace MarketConsole.Service.Concrete
                 {
                     Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
                 }
-
             }
             catch (Exception ex)
             {
@@ -162,15 +163,12 @@ namespace MarketConsole.Service.Concrete
                 {
                     Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
                 }
-
-
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine($"Oops, error. {ex.Message}");
             }
-           
         }
 
         public static void MenuSearchProductsByName()
@@ -198,7 +196,6 @@ namespace MarketConsole.Service.Concrete
 
                 throw;
             }
-
         }
 
         public static void MenuAddNewSale()
@@ -293,7 +290,6 @@ namespace MarketConsole.Service.Concrete
                 Console.WriteLine($"Id: {sale.Id} | Sum: {sale.TotalSum} | Quantity: {sale.Quantity} | Date: {sale.Date} ");
 
             }
-
         }
 
         public static void MenuShowSalesByDateRange()
@@ -359,9 +355,6 @@ namespace MarketConsole.Service.Concrete
                     }
                     Console.WriteLine("--------------------");
                 }
-
-
-
             }
             catch (Exception ex)
             {
@@ -432,15 +425,7 @@ namespace MarketConsole.Service.Concrete
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-            
     }
-
-        
-
-        
-   
-
-
 }
 
 

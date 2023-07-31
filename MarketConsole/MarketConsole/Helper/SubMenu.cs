@@ -12,7 +12,6 @@ namespace MarketConsole.Helper
     {
         public static void ProductHandlingSubMenu()
         {
-
             int option;
 
             do
@@ -26,15 +25,15 @@ namespace MarketConsole.Helper
                 Console.WriteLine("6. Show products by price range");
                 Console.WriteLine("7. Search products by name");
                 Console.WriteLine("0. Go back");
-                Console.WriteLine("------------------------");
+                Console.WriteLine("---------------------------");
                 Console.WriteLine("Please, select an option:");
-                Console.WriteLine("------------------------");
+                Console.WriteLine("---------------------------");
 
                 while (!int.TryParse(Console.ReadLine(), out option))
                 {
-                    Console.WriteLine("------------------------");
+                    Console.WriteLine("--------------------------");
                     Console.WriteLine("Please, enter a valid option:");
-                    Console.WriteLine("------------------------");
+                    Console.WriteLine("--------------------------");
                 }
 
                 switch (option)
@@ -66,7 +65,6 @@ namespace MarketConsole.Helper
                         Console.WriteLine("No such option!");
                         break;
                 }
-
             }   while (option != 0);
         }
 
@@ -85,15 +83,15 @@ namespace MarketConsole.Helper
                 Console.WriteLine("7. Showing sales on a given date");
                 Console.WriteLine("8. Show sales by give Id");
                 Console.WriteLine("0. Go Back");
-                Console.WriteLine("------------------------");
+                Console.WriteLine("--------------------------");
                 Console.WriteLine("Please, select an option:");
-                Console.WriteLine("------------------------");
+                Console.WriteLine("--------------------------");
 
                 while (!int.TryParse(Console.ReadLine(), out option))
                 {
-                    Console.WriteLine("------------------------");
+                    Console.WriteLine("---------------------------");
                     Console.WriteLine("Please, enter a valid option:");
-                    Console.WriteLine("------------------------");
+                    Console.WriteLine("---------------------------");
                 }
 
                 switch (option)
@@ -128,9 +126,7 @@ namespace MarketConsole.Helper
                         Console.WriteLine("No such option!");
                         break;
                 }
-
-            } while (option != 0);
+            }while (option != 0);
         }
-        
     }
 }
