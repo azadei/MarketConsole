@@ -46,6 +46,9 @@ namespace MarketConsole.Service.Concrete
                 Category category = (Category)Enum.Parse(typeof(Category), Console.ReadLine(),true);
 
                 marketService.AddProduct(name, price, quantity, category);          //calling the marketService.AddProduct method to add the new product to the system
+                Console.WriteLine("_________________________");
+                Console.WriteLine("Product added succesfully");
+                Console.WriteLine("_________________________");
             }
             catch (Exception ex)
             {
@@ -192,10 +195,9 @@ namespace MarketConsole.Service.Concrete
                     Console.WriteLine($"Id: {product.Id} | Name: {product.Name} | Price: {product.Price} | Quantity: {product.Quantity} | Category: {product.Category}");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Console.WriteLine($"Oops, error. {ex.Message}");
             }
         }
 
@@ -266,8 +268,7 @@ namespace MarketConsole.Service.Concrete
                 Console.WriteLine("Enter sale's Id:");                      //ask user to enter sale id
                 int id = int.Parse(Console.ReadLine());
 
-                marketService.RemoveSale(id);                               //calling the marketService.RemoveSale method to remove the sale
-                marketService.RemoveSale(id);
+                marketService.RemoveSale(id);                               //calling the marketService.RemoveSale method to remove the sa
 
                 Console.WriteLine("Sale removed succesfully");
             }
